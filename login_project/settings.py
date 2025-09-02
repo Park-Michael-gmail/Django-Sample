@@ -81,14 +81,17 @@ WSGI_APPLICATION = 'login_project.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'sql_server.pyodbc',
-        'NAME': 'YourDatabaseName',  # MSSQL 데이터베이스 이름
-        'USER': 'YourUsername',      # MSSQL 사용자명
-        'PASSWORD': 'YourPassword',  # MSSQL 비밀번호
-        'HOST': 'localhost',         # MSSQL 서버 주소
-        'PORT': '1433',             # MSSQL 포트
+        'ENGINE': 'mssql',               # mssql-django backend (SQL Server 2022 지원)
+        'NAME': 'django',
+        'USER': 'django',
+        'PASSWORD': 'django',
+        'HOST': 'A-IO-PYH\\SQLEXPRESS',
+        # 'PORT': '',
         'OPTIONS': {
-            'driver': 'ODBC Driver 17 for SQL Server',
+            'driver': 'ODBC Driver 17 for SQL Server',  # 18 설치 시 'ODBC Driver 18 for SQL Server'
+            'host_is_server': True,
+            'Encrypt': 'yes',
+            'TrustServerCertificate': 'yes',
         },
     }
 }
@@ -129,8 +132,8 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/5.2/howto/static-files/
 
 # 로그인/로그아웃 리다이렉트 URL
-LOGIN_REDIRECT_URL = 'home'
-LOGOUT_REDIRECT_URL = 'login'
+LOGIN_REDIRECT_URL = 'accounts:home'
+LOGOUT_REDIRECT_URL = 'accounts:login'
 
 # 정적 파일 설정
 STATIC_URL = 'static/'

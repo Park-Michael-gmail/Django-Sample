@@ -13,7 +13,7 @@ def home(request):
 def user_login(request):
     """사용자 로그인"""
     if request.user.is_authenticated:
-        return redirect('home')
+        return redirect('accounts:home')
     
     if request.method == 'POST':
         form = UserLoginForm(request, data=request.POST)
@@ -24,7 +24,7 @@ def user_login(request):
             if user is not None:
                 login(request, user)
                 messages.success(request, f'{username}님, 환영합니다!')
-                return redirect('home')
+                return redirect('accounts:home')
             else:
                 messages.error(request, '사용자명 또는 비밀번호가 올바르지 않습니다.')
     else:
@@ -35,7 +35,7 @@ def user_login(request):
 def user_register(request):
     """사용자 회원가입"""
     if request.user.is_authenticated:
-        return redirect('home')
+        return redirect('accounts:home')
     
     if request.method == 'POST':
         form = UserRegistrationForm(request.POST)
@@ -43,7 +43,7 @@ def user_register(request):
             user = form.save()
             login(request, user)
             messages.success(request, '회원가입이 완료되었습니다!')
-            return redirect('home')
+            return redirect('accounts:home')
     else:
         form = UserRegistrationForm()
     
@@ -54,7 +54,7 @@ def user_logout(request):
     """사용자 로그아웃"""
     logout(request)
     messages.info(request, '로그아웃되었습니다.')
-    return redirect('login')
+    return redirect('accounts:login')
 
 @login_required
 def profile(request):

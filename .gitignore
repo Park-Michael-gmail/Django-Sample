@@ -57,3 +57,12 @@ Thumbs.db
 .env.development.local
 .env.test.local
 .env.production.local
+
+# Office & temp docs
+*.docx
+~$*.docx
+~WR*.tmp
+*.tmp
+
+# Misc local folders
+Install Program/
